@@ -1,5 +1,7 @@
 # DRF스터디
 
+화 목 21시, 토요일 19시
+
 ## 11월 24일 1회차
 
 https://www.youtube.com/watch?v=R_bTpCHNWYo&list=PLQFurmxCuZ2Qmcl0TJame_N79kP2o7VzG&index=12
