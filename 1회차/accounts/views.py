@@ -1,9 +1,9 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from django.shortcuts import render
+from .serializers import UserSerializer
+from .models import User
+from rest_framework import generics
 
-# Create your views here.
-
-
-@api_view()
-def hello_world(request):
-    return Response({"message": "Hello, world!"})
+# 회원가입
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
