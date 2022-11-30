@@ -152,8 +152,8 @@ from rest_framework import serializers
 from .models import Article
 
 class ArticleSerializer(serializers.Serializer):
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=400)
+    title = serializers.CharField(max_length=100)
+    description = serializers.CharField(max_length=400)
     
     def create(self, validated_data):
         return Article.objects.create(validated_data)
@@ -270,7 +270,7 @@ from django.shortcuts import render, HttpResponse
 from .models import Article	# 추가
 from .serializers import ArticleSerializer	# 추가
 from django.http import JsonResonse	# 추가
-from rest_framework.parsers impoort JSONParser	# 추가
+from rest_framework.parsers import JSONParser	# 추가
 from django.views.decorators.csrf import csrf_exempt	# 추가
 
 '''삭제
@@ -281,14 +281,14 @@ def Index(request):
 def article_list(request):
 
     # get all articles
-    if requset.method == 'GET':
+    if request.method == 'GET':
         articles = Article.objects.all()
-        serializer = Articleserializer(articles, many=True)
+        serializer = ArticleSerializer(articles, many=True)
         return JsonResponse(serializer.data, safe=False)
     
     elif request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = Articleserializer(data=data)
+        serializer = ArticleSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
@@ -321,7 +321,7 @@ def article_details(request, pk):
         serializer =ArticleSerializer(article)
         return JsonResponse(serializer.data)
     
-    elif request.method == 'PUT'
+    elif request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = Articleserializer(article, data=data)
         if serializer.is_valid():
@@ -342,7 +342,7 @@ from .views import article_list, article_details
 
 urlpatterns = [
     path('articles/', article_list),
-    path('articles<int:pk>/', article_details),
+    path('articles/<int:pk>/', article_details),
 ]
 ```
 
