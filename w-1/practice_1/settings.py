@@ -10,13 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+
 from pathlib import Path
+import datetime  # 56에서 시작되는 JWT_AUTH 의 토큰 유효기간을 설정하기 위한 datetime import
+import os  # 아래에 작성한 image가 추가될 때 경로를 설정해주기 위한 os import
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")  # 개발자가 관리하는 파일들
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(
+    BASE_DIR, "media"
+)  # 사용자가 업로드한 파일 관리# Quick-start development settings - unsuitable for production
+
+
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -32,7 +43,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "rest_framework",
+    "accounts",
     "test_1",
+    "rest_framework_simplejwt",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -107,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
@@ -123,3 +136,25 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+REST_FRAMEWORK = {  # 추가
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",  # 인증된 회원만 액세스 허용
+        "rest_framework.permissions.AllowAny",  # 모든 회원 액세스 허용
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (  # api가 실행됬을 때 인증할 클래스를 정의해주는데 우리는 JWT를 쓰기로 했으니
+        "rest_framework_simplejwt.authentication.JWTAuthentication",  # 이와 같이 추가해준 모습이다.
+    ),
+}
+
+
+JWT_AUTH = {  # 추가
+    "JWT_SECRET_KEY": SECRET_KEY,
+    "JWT_ALGORITHM": "HS256",
+    "JWT_VERIFY_EXPIRATION": True,  # 토큰검증
+    "JWT_ALLOW_REFRESH": True,  # 유효기간이 지나면 새로운 토큰반환의 refresh
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(minutes=30),  # Access Token의 만료 시간
+    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=3),  # Refresh Token의 만료 시간
+    "JWT_RESPONSE_PAYLOAD_HANDLER": "api.custom_responses.my_jwt_response_handler",
+}

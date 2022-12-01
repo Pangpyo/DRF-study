@@ -8,3 +8,8 @@ from django.conf import settings
 class Articles(models.Model):
     title = models.CharField(max_length=30)
     content = models.CharField(max_length=100)
+
+
+class Camp(models.Model):
+    title = models.CharField(max_length=30)
+    local = models.BooleanField(blank=True)

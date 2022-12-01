@@ -140,7 +140,7 @@ serializer.save()
 
 # view , viewSet
 
-APIView, MIxins, Generic CBV 랑 Viewsets 
+APIView, MIxins, Generic CBV 랑 Viewsets (최종진화)
 
 기존의 펑션베이스뷰는 GET이냐 POST에 따라서 어떤 리스폰스를 내보낼지 결정을 했음
 
