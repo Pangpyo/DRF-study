@@ -68,3 +68,4 @@ https://www.youtube.com/watch?v=R_bTpCHNWYo&list=PLQFurmxCuZ2Qmcl0TJame_N79kP2o7
 2조 : 다겸 유영 승찬 광표 준엽 진욱
 
 ### 오늘의 주제 : 게시글 댓글 + 인증/권한 마무리
+
