@@ -10,6 +10,7 @@ class Board(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        
 
 class Comment(models.Model):
     board = models.ForeignKey(Board, related_name='comments', on_delete=models.CASCADE)
