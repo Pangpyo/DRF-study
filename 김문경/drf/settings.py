@@ -137,19 +137,25 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # drf 설정
 REST_FRAMEWORK = {
+    # DRF에서 제공해주는 pagination을 사용하기 위한 설정
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # pagination을 몇개씩 보여줄 지
     'PAGE_SIZE': 10,
+    # 기본 permisstons을 어떻게 줄 것인지
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    # Authentication설정
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
+    # pi 결과를 어떤 형태로 전달하는가에 대한 설정 (프론트가 편하려면 json 형태가 좋음)
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
+    # 요청받을 때 body 형태에 대한 설정
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
@@ -173,9 +179,10 @@ JWT_AUTH = {
 
     'JWT_RESPONSE_PAYLOAD_HANDLER':
         'rest_framework_jwt.utils.jwt_response_payload_handler',
-
-    'JWT_SECRET_KEY': 'SECRET_KEY',
-    'JWT_GET_USER_SECRET_KEY': None,
+ 
+    # 공식문서 참고: https://jpadilla.github.io/django-rest-framework-jwt/
+    'JWT_SECRET_KEY': 'SECRET_KEY', # This is the secret key used to sign the JWT.
+    'JWT_GET_USER_SECRET_KEY': None, 
     'JWT_PUBLIC_KEY': None,
     'JWT_PRIVATE_KEY': None,
     'JWT_ALGORITHM': 'HS256',
