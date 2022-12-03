@@ -118,8 +118,15 @@ ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 o
 ACCOUNT_USERNAME_REQUIRED = False  # username 필드 사용 x
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "accounts.serializers.CustomUserRegisterSerializer"
+}  # 유저 회원가입
+
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "accounts.serializers.CustomUserDetailsSerializer",
+}  # 유저 디테일 시리얼라이져
+
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
