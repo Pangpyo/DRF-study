@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     ##
     'rest_framework',
+    'rest_framework.authtoken',
+
     'project',
     'account',
 
@@ -149,3 +151,12 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'
+
+
+RESTFRAMEWORK = {
+	'DEFAULT_AUTHENTICATION_CLASSES': [
+    	'rest_framework.authentication.SessionAuthenticaiotn',
+        'rest_framework.authentication.BasicAuthenticaiotn',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
