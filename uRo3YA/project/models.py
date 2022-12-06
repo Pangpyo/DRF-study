@@ -11,7 +11,11 @@ class Blog(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     body = models.TextField()
     image = models.ImageField(null=True, blank=True,upload_to="image")
-
+    like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="like_post_set" )
+    
+    def is_like_user(self, user):
+        return self.like_user_set.filter(pk=user.pk).exists()
+        
     class Meta:
         db_table = 'blog'
 
